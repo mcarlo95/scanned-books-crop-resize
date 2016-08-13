@@ -1,6 +1,6 @@
 # scanned-books-crop-resize
 
-This is a collection of bash/linux command useful for editing a scanned book. You start with a scanned double-page-per-side pdf and you come up with a single-page, cropped and reduced in size pdf.
+This is a collection of bash/linux commands useful for editing a scanned book. You start with a scanned double-page-per-side pdf and you come up with a single-page, cropped and reduced in size pdf.
 
 ![](description.png)
 ## Required
@@ -12,15 +12,14 @@ You may have to install the following tools:
 
 ## Procedure
 The procedure is the following. We extract images from pdf file, then we crop the right pages and the left pages, we convert images back to pdf files and we join them toghether.
-Note: to have a good result you must be very careful to scan the pages mantaining the book aligned in the same position, athought cropping may cut out part of text from some pages.
+Note: to have a good result you must be very careful to scan the pages maintaining the book aligned in the same position, athought cropping may cut out part of text from some pages.
 
 #### Create a directory to store extracted images
 `mkdir img`
 #### Extract pages from the pdf to image files
 `pdfimages input.pdf img/page`
 
-Check the
-#### Now we must separate right pages from left so let's create two directories
+#### Now we must separate right pages from left pages so let's create two directories
 `mkdir right/img`
 
 `mkdir left/img`
@@ -29,8 +28,8 @@ Open one of the images in img/ with GIMP (or another image program), use rectang
 #### Now we can use imagemagick convert to crop right pages
 `for a in img/*.pbm; do convert -crop WIDTHxHEIGHT+X0+Y0 $a right/$a ; done`
 
-Remember to substitute the values with the one you wrote down.
-#### We must now repeat the same (Size selectin and cropping) for the left pages
+Remember to replace the values with the ones you wrote down.
+#### We must now repeat the same (defining area and cropping) for the left pages
 `for a in img/*.pbm; do convert -crop WIDTHxHEIGHT+X0+Y0 $a left/$a ; done`
 #### To have pages ordered properly before we join right pages and left pages we rename the right pages
 `rename .pbm b.pbm right/images/*`
@@ -40,6 +39,9 @@ Remember to substitute the values with the one you wrote down.
 `for a in pages/*; do convert $a $a.pdf; done`
 #### and join them toghether
 `pdfunite pages/*.pdf output.pdf`
+
+#### Delete temporary files
+Check if your final pdf is OK, then you can remove all the temporary directories created.
 
 ## Quality settings
 Now we have the final cropped pdf. That will probably a high quality, big file. We can adjust the size of our file:
