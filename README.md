@@ -31,8 +31,9 @@ Open one of the images in img/ with GIMP (or another image program), use rectang
 Remember to replace the values with the ones you wrote down.
 #### We must now repeat the same (defining area and cropping) for the left pages
 `for a in img/*.pbm; do convert -crop WIDTHxHEIGHT+X0+Y0 $a left/$a ; done`
-#### To have pages ordered properly before we join right pages and left pages we rename the right pages
-`rename .pbm b.pbm right/images/*`
+#### To have pages ordered properly before we join right pages and left pages we rename the pages
+`rename .pbm b right/images/*`
+`rename .pbm a left/images/*`
 #### Copy the right and the left pages in the same directory
 `mkdir pages; cp left/img/* pages/; cp right/img/* pages/;`
 #### convert all the images to pdf
@@ -42,6 +43,7 @@ Remember to replace the values with the ones you wrote down.
 
 #### Delete temporary files
 Check if your final pdf is OK, then you can remove all the temporary directories created.
+`rm -R right/ left/ img/ pages/`
 
 ## Quality settings
 Now we have the final cropped pdf. That will probably a high quality, big file. We can adjust the size of our file:
