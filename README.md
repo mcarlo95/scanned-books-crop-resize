@@ -32,9 +32,9 @@ Remember to replace the values with the ones you wrote down.
 #### We must now repeat the same (defining area and cropping) for the left pages
 `for a in img/*.pbm; do convert -crop WIDTHxHEIGHT+X0+Y0 $a left/$a ; done`
 #### To have pages ordered properly before we join right pages and left pages we rename the pages
-`rename .pbm b right/images/*`
+`rename s/.pbm/b.pbm/ right/img/*`
 
-`rename .pbm a left/images/*`
+`rename s/.pbm/a.pbm/ left/img/*`
 #### Copy the right and the left pages in the same directory
 `mkdir pages; cp left/img/* pages/; cp right/img/* pages/;`
 #### convert all the images to pdf
